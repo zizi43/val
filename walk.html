@@ -748,7 +748,7 @@
   // Finish the walk and mark as completed
   function finishWalk() {
     try {
-      localStorage.setItem('walkCompleted', '5');
+      localStorage.setItem('walkCompleted', '1');
     } catch (e) {
       console.warn('localStorage not available', e);
     }
@@ -774,16 +774,49 @@
     }, 1200);
   }
 
-  // If the page loads and walk was already completed, disable any walk-specific interactive buttons
+  // If the page loads and walk was already completed, close the site (or show closed overlay)
   window.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('walkCompleted') === '1') {
-      // Optionally show a small note or auto-send back to index
-      // document.body.innerHTML = '<p style="padding:20px;">Walk already completed.</p>';
+      // Disable interactive buttons immediately
+      document.querySelectorAll('button').forEach(b => {
+        b.disabled = true;
+        b.title = 'Walk completed';
+      });
+
+      // Try to close the window/tab (works when window opened by script). If not allowed, show a closed overlay.
+      try {
+        window.close();
+        setTimeout(() => {
+          // If still open, display overlay to indicate closure
+          if (!document.hidden && document.body) {
+            showClosedOverlay();
+          }
+        }, 300);
+      } catch (e) {
+        showClosedOverlay();
+      }
     }
   });
+
+  function showClosedOverlay() {
+    let overlay = document.getElementById('closed-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'closed-overlay';
+      overlay.className = 'tease-modal show';
+      overlay.innerHTML = '<div class="modal-content"><h1>Closed</h1><p style="font-size:1rem">This link has been closed. 👋</p></div>';
+      document.body.appendChild(overlay);
+    } else {
+      overlay.classList.add('show');
+    }
+
+    // visually disable page
+    const main = document.querySelector('main');
+    if (main) main.style.filter = 'blur(6px) brightness(0.9)';
+    document.querySelectorAll('button').forEach(b => b.disabled = true);
+  }
 
 </script>
 
 </body>
-
 </html>
