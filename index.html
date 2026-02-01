@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saturday, 14th Feb 💝</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a0f14 0%, #2d1b1e 50%, #1f1418 100%);
+      color: #fff5f0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Ambient floating particles */
+    .particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 182, 193, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      to { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+    }
+
+    main {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .screen {
+      position: absolute;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      padding: 20px;
+    }
+
+    .screen.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      font-weight: 600;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff5f0 0%, #ffc0cb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 6vw, 2.4rem);
+      font-weight: 400;
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #ffd1dc;
+    }
+
+    p {
+      font-size: 16.5px;
+      line-height: 1.9;
+      color: #f0e0d6;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .date-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 182, 193, 0.1);
+      border: 1px solid rgba(255, 182, 193, 0.3);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffb6c1;
+      margin-bottom: 24px;
+      backdrop-filter: blur(10px);
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 182, 193, 0.4); }
+      50% { box-shadow: 0 0 20px 5px rgba(255, 182, 193, 0.1); }
+    }
+
+    /* Interactive Buttons */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 182, 193, 0.4);
+      color: #fff0f3;
+      padding: 16px 32px;
+      font-size: 15px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    button:hover {
+      background: rgba(255, 182, 193, 0.15);
+      border-color: rgba(255, 182, 193, 0.8);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(255, 182, 193, 0.2);
+    }
+
+    button:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+
+    button .emoji {
+      display: inline-block;
+      transition: transform 0.3s;
+      margin-left: 6px;
+    }
+
+    button:hover .emoji {
+      transform: scale(1.3) rotate(10deg);
+    }
+
+    /* Special hold button */
+    .hold-btn {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 20, 147, 0.1));
+      border-color: rgba(255, 105, 180, 0.5);
+    }
+
+    .hold-btn .progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: rgba(255, 105, 180, 0.3);
+      transition: width 0.1s;
+    }
+
+    /* Tease cards */
+    .tease-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tease-card::before {
+      content: "💭";
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      font-size: 60px;
+      opacity: 0.1;
+      transform: rotate(15deg);
+    }
+
+    .tease-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: #ffe4e1;
+      line-height: 1.5;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .giggle-btn {
+      background: transparent;
+      border: 2px dashed rgba(255, 182, 193, 0.4);
+      margin-top: 10px;
+    }
+
+    .giggle-btn:hover {
+      border-style: solid;
+      background: rgba(255, 182, 193, 0.1);
+    }
+
+    /* Heart burst animation */
+    .heart-burst {
+      position: fixed;
+      pointer-events: none;
+      animation: burst 1s ease-out forwards;
+      font-size: 24px;
+      z-index: 100;
+    }
+
+    @keyframes burst {
+      0% { transform: translate(0, 0) scale(0) rotate(0deg); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(360deg); opacity: 0; }
+    }
+
+    /* Fireworks Modal */
+    #fireworks-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.5s;
+      backdrop-filter: blur(5px);
+    }
+
+    #fireworks-modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      text-align: center;
+      z-index: 10;
+      padding: 40px;
+    }
+
+    .modal-content h1 {
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      margin-bottom: 20px;
+      animation: heartbeat 1.5s ease-in-out infinite;
+      text-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
+      -webkit-text-fill-color: #fff0f3;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .click-hint {
+      font-size: 13px;
+      color: #888;
+      margin-top: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .secret-reveal {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: #ffd1dc;
+      margin-top: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease 2s;
+    }
+
+    .secret-reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .highlight {
+      color: #ffb6c1;
+      font-weight: 600;
+    }
+
+    /* Input styling for interaction */
+    .love-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 182, 193, 0.3);
+      border-radius: 50px;
+      padding: 14px 24px;
+      color: #fff;
+      font-size: 16px;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px 0;
+      text-align: center;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .love-input:focus {
+      border-color: rgba(255, 182, 193, 0.8);
+      box-shadow: 0 0 20px rgba(255, 182, 193, 0.2);
+    }
+
+    .validation-msg {
+      height: 24px;
+      font-size: 14px;
+      color: #90ee90;
+      margin-top: 8px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .validation-msg.show {
+      opacity: 1;
+    }
+
+    /* Teaser modal for linking & completed state */
+    .tease-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+    }
+    .tease-modal.show { display:flex; }
+    .tease-modal .modal-content {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,182,193,0.2);
+      padding: 28px;
+      border-radius: 18px;
+      text-align: center;
+      color: #ffdede;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Ambient particles -->
+<div id="particles"></div>
+
+<main>
+
+  <!-- 1. WAKE UP (Saturday Energy) -->
+  <section class="screen active">
+    <div class="date-chip">
+      <span>📅</span> Saturday, 14th February 2026
+    </div>
+    <h1>Rise and shine,<br>sleepy beauty! ☀️</h1>
+    <p>
+      Guess what? It's <span class="highlight">Saturday</span> — no alarm, no rush, <br>
+      no "I'll be late for work." Just you, me, and this digital love letter.<br><br>
+      Are you awake enough to handle some compliments,<br>
+      or do you need coffee first? ☕️
+    </p>
+    <div class="btn-group">
+      <button onclick="nextScreen()">I'm awake! Bring it on <span class="emoji">💪</span></button>
+      <button onclick="coffeeMode()" style="opacity: 0.8; font-size: 13px;">Still need caffeine...</button>
+      <button id="open-walk-btn" class="walk-link-btn">Follow the Walk 🚶‍♀️</button>
+    </div>
+  </section>
+
+  <!-- 2. THE ROAST (Interactive Teasing) -->
+  <section class="screen">
+    <h2>Before we get sappy...</h2>
+    <div class="tease-card">
+      <div id="roast-text" class="tease-text">
+        Quick question: Do you know what you did at 3 AM last night?
+      </div>
+    </div>
+    <div class="btn-group" id="roast-buttons">
+      <button onclick="revealRoast('blankets')">Stole all the blankets? 🥶</button>
+      <button onclick="revealRoast('sleep')">Kicked me in your sleep? 🦵</button>
+      <button onclick="revealRoast('snore')">Made tiny sleepy noises? 😴</button>
+    </div>
+    <p id="roast-reveal" style="font-style: italic; color: #ffd1dc; margin-top: 20px; opacity: 0; transition: opacity 0.5s;"></p>
+    <button id="roast-continue" onclick="nextScreen()" style="display: none; margin-top: 20px;">Okay, you got me <span class="emoji">😅</span></button>
+  </section>
+
+  <!-- 3. THE SMILE TEST -->
+  <section class="screen">
+    <h2>Smile Check! 😊</h2>
+    <p>
+      I need to verify something important.<br>
+      Type the word that describes what I'm making you do right now:
+    </p>
+    <input type="text" id="smile-input" class="love-input" placeholder="Hint: S _ _ L E" maxlength="5">
+    <div id="smile-validation" class="validation-msg">There it is! That beautiful smile 💕</div>
+    <br>
+    <button onclick="checkSmile()" id="smile-btn" disabled style="opacity: 0.5;">Confirm Smile <span class="emoji">✨</span></button>
+  </section>
+
+  <!-- 4. THE QUIZ (Hold to Confirm Love) -->
+  <section class="screen">
+    <h2>Pop Quiz! 📝</h2>
+    <p>
+      What do I love most about you on this<br>
+      beautiful Saturday morning?
+    </p>
+    <div class="btn-group">
+      <button onclick="wrongAnswer(this)">Your perfect hair 💁‍♀️</button>
+      <button onclick="wrongAnswer(this)">Your dazzling intellect 🧠</button>
+      <button class="hold-btn" onmousedown="startHold()" onmouseup="endHold()" onmouseleave="endHold()" ontouchstart="startHold()" ontouchend="endHold()">
+        <div class="progress" id="hold-progress"></div>
+        <span style="position: relative; z-index: 2;">Everything (Hold to confirm) ❤️</span>
+      </button>
+    </div>
+    <p id="quiz-hint" style="font-size: 13px; color: #888; margin-top: 20px;"></p>
+  </section>
+
+  <!-- 5. MEMORY GAME -->
+  <section class="screen">
+    <h2>Remember When... 💭</h2>
+    <p>Click the memory that makes you laugh the most:</p>
+    <div class="btn-group">
+      <button onclick="showMemory(this, 'toast')" style="text-align: left; padding-left: 24px;">
+        🍞 You burnt toast & tried to hide it
+      </button>
+      <button onclick="showMemory(this, 'dance')" style="text-align: left; padding-left: 24px;">
+        💃 That weird dance in the kitchen
+      </button>
+      <button onclick="showMemory(this, 'blanket')" style="text-align: left; padding-left: 24px;">
+        🛌 The Great Blanket War of 2025
+      </button>
+    </div>
+    <div id="memory-reveal" style="margin-top: 24px; font-family: 'Cormorant Garamond'; font-style: italic; font-size: 1.3rem; color: #ffb6c1; opacity: 0; transition: all 0.5s; transform: translateY(10px);"></div>
+    <button id="memory-next" onclick="nextScreen()" style="display: none; margin-top: 24px;">Continue <span class="emoji">➡️</span></button>
+  </section>
+
+  <!-- 6. THE GRAND FINALE -->
+  <section class="screen">
+    <h2>Ready for your surprise? 🎁</h2>
+    <p>
+      I've been saving the best for last.<br>
+      Close your eyes, take a deep breath...<br>
+      and click below when you're ready.
+    </p>
+    <button onclick="launchFireworks()" style="background: linear-gradient(135deg, rgba(255,105,180,0.3), rgba(255,20,147,0.2)); border-color: rgba(255,105,180,0.6); font-size: 18px; padding: 20px 40px;">
+      Open Your Surprise <span class="emoji">🎆</span>
+    </button>
+  </section>
+
+</main>
+
+<!-- Fireworks Modal -->
+<div id="fireworks-modal" onclick="closeFireworks()">
+  <canvas id="fireworks-canvas"></canvas>
+  <div class="modal-content">
+    <h1>Happy Valentine's Day<br>Sweetheart! 💝</h1>
+    <p style="font-size: 1.3rem; color: #ffd1dc; margin-bottom: 10px;">
+      You make every Saturday feel like magic.
+    </p>
+    <p class="click-hint">(Click anywhere to continue)</p>
+  </div>
+  <div class="secret-reveal" id="final-clue">
+    🔍 Check under your favorite coffee mug...
+  </div>
+</div>
+
+<script>
+  // Screen management
+  const screens = document.querySelectorAll('.screen');
+  let currentScreen = 0;
+
+  function nextScreen() {
+    screens[currentScreen].classList.remove('active');
+    currentScreen++;
+    if (screens[currentScreen]) {
+      screens[currentScreen].classList.add('active');
+      createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+    }
+  }
+
+  // Coffee mode easter egg
+  function coffeeMode() {
+    alert("☕ Go grab that coffee! I'll wait here...\n\n(Just kidding, click 'I'm awake' when you're ready!)");
+  }
+
+  // Roast interaction
+  const roastResponses = {
+    blankets: "Correct! You were wrapped like a burrito. I was freezing, but watching you sleep all cozy was worth it. 🌯❄️",
+    sleep: "Close! You actually did all three, but the blanket theft was especially impressive last night.",
+    snore: "Those tiny noises are adorable, but the blanket situation was criminal! 😄"
+  };
+
+  function revealRoast(type) {
+    document.getElementById('roast-text').textContent = roastResponses[type];
+    document.getElementById('roast-buttons').style.display = 'none';
+    const reveal = document.getElementById('roast-reveal');
+    reveal.textContent = "And yet... I wouldn't change a thing. 💕";
+    reveal.style.opacity = '1';
+    document.getElementById('roast-continue').style.display = 'inline-block';
+    createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+  }
+
+  // Smile validation
+  const smileInput = document.getElementById('smile-input');
+  const smileBtn = document.getElementById('smile-btn');
+  
+  smileInput.addEventListener('input', (e) => {
+    const val = e.target.value.toLowerCase();
+    if (val === 'smile') {
+      smileBtn.disabled = false;
+      smileBtn.style.opacity = '1';
+      document.getElementById('smile-validation').classList.add('show');
+      createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+    } else {
+      smileBtn.disabled = true;
+      smileBtn.style.opacity = '0.5';
+      document.getElementById('smile-validation').classList.remove('show');
+    }
+  });
+
+  function checkSmile() {
+    nextScreen();
+  }
+
+  // Hold button mechanic
+  let holdInterval;
+  let holdProgress = 0;
+  
+  function startHold() {
+    holdInterval = setInterval(() => {
+      holdProgress += 2;
+      document.getElementById('hold-progress').style.width = holdProgress + '%';
+      if (holdProgress >= 100) {
+        clearInterval(holdInterval);
+        createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+        setTimeout(() => nextScreen(), 300);
+      }
+    }, 20);
+  }
+
+  function endHold() {
+    clearInterval(holdInterval);
+    if (holdProgress < 100) {
+      holdProgress = 0;
+      document.getElementById('hold-progress').style.width = '0%';
+    }
+  }
+
+  function wrongAnswer(btn) {
+    btn.style.transform = 'translateX(10px)';
+    setTimeout(() => btn.style.transform = 'translateX(-10px)', 50);
+    setTimeout(() => btn.style.transform = 'translateX(0)', 100);
+    document.getElementById('quiz-hint').textContent = "Hint: It's not just one thing... try holding the last option! 😉";
+  }
+
+  // Memory selection
+  function showMemory(btn, type) {
+    const responses = {
+      toast: "The smoke alarm was cheering you on! But you made new toast and smiled anyway. That's resilience. 🍞🔥",
+      dance: "That moment lives rent-free in my head forever. No rhythm, all joy. 💃🕺",
+      blanket: "Historical fact: You won. I surrendered. But I got cuddles, so actually I won. 🏳️❤️"
+    };
+    
+    document.querySelectorAll('.btn-group button').forEach(b => b.style.opacity = '0.3');
+    btn.style.opacity = '1';
+    btn.style.transform = 'scale(1.05)';
+    
+    const reveal = document.getElementById('memory-reveal');
+    reveal.textContent = responses[type];
+    reveal.style.opacity = '1';
+    reveal.style.transform = 'translateY(0)';
+    
+    document.getElementById('memory-next').style.display = 'inline-block';
+    createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+  }
+
+  // Heart burst effect
+  function createHeartBurst(x, y) {
+    const hearts = ['💕', '💖', '💗', '💝', '💘', '✨'];
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart-burst';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+        heart.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+      }, i * 50);
+    }
+  }
+
+  // Fireworks System
+  let fireworksCanvas, ctx, fireworksInterval;
+  const particles = [];
+
+  function launchFireworks() {
+    const modal = document.getElementById('fireworks-modal');
+    modal.classList.add('show');
+    
+    fireworksCanvas = document.getElementById('fireworks-canvas');
+    ctx = fireworksCanvas.getContext('2d');
+    fireworksCanvas.width = window.innerWidth;
+    fireworksCanvas.height = window.innerHeight;
+    
+    // Launch initial burst
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => createFirework(), i * 300);
+    }
+    
+    fireworksInterval = setInterval(() => {
+      if (Math.random() > 0.7) createFirework();
+    }, 800);
+
+    // Show final clue after delay
+    setTimeout(() => {
+      document.getElementById('final-clue').classList.add('show');
+    }, 3000);
+    
+    animateFireworks();
+  }
+
+  function createFirework() {
+    const x = Math.random() * fireworksCanvas.width;
+    const y = fireworksCanvas.height;
+    const targetY = Math.random() * fireworksCanvas.height * 0.4 + 50;
+    const colors = ['#ff69b4', '#ffd700', '#ff1493', '#00ffff', '#ff6347', '#ffffff'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    
+    particles.push({
+      x, y, targetY, color,
+      vx: (Math.random() - 0.5) * 2,
+      vy: -Math.random() * 5 - 8,
+      life: 100,
+      type: 'rocket'
+    });
+  }
+
+  function explode(x, y, color) {
+    for (let i = 0; i < 30; i++) {
+      const angle = (Math.PI * 2 * i) / 30;
+      const velocity = Math.random() * 5 + 2;
+      particles.push({
+        x, y, color,
+        vx: Math.cos(angle) * velocity,
+        vy: Math.sin(angle) * velocity,
+        life: 60,
+        type: 'particle',
+        alpha: 1
+      });
+    }
+  }
+
+  function animateFireworks() {
+    if (!document.getElementById('fireworks-modal').classList.contains('show')) return;
+    
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+    
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      
+      if (p.type === 'rocket') {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.2; // gravity
+        
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        
+        if (p.vy > 0 || p.y <= p.targetY) {
+          explode(p.x, p.y, p.color);
+          particles.splice(i, 1);
+        }
+      } else {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.1;
+        p.vx *= 0.98;
+        p.life--;
+        p.alpha = p.life / 60;
+        
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+    }
+    
+    requestAnimationFrame(animateFireworks);
+  }
+
+  function closeFireworks() {
+    document.getElementById('fireworks-modal').classList.remove('show');
+    clearInterval(fireworksInterval);
+    // Final message, then proceed to the walk if not already completed
+    setTimeout(() => {
+      alert("🎉 Now go find your real gift! Happy Valentine's Day! 💝");
+      try {
+        if (localStorage.getItem('walkCompleted') !== '1') {
+          showTeaserThenGo('Hehe, ready for the walk? 😏', '😆', 'walk.html');
+        } else {
+          // Already completed — stay on the page or optionally show mission screen
+          // document.getElementById('screen-mission').classList.add('active');
+        }
+      } catch (e) {
+        // localStorage may be unavailable; fallback to direct navigation
+        window.location.href = 'walk.html';
+      }
+    }, 500);
+  }
+
+  // Ambient particles
+  function createAmbientParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDelay = Math.random() * 20 + 's';
+      p.style.animationDuration = (15 + Math.random() * 10) + 's';
+      container.appendChild(p);
+    }
+  }
+  createAmbientParticles();
+
+  // Add click effects
+  document.addEventListener('click', (e) => {
+    const tag = e.target.tagName;
+    const interactiveTags = ['BUTTON', 'INPUT', 'A', 'TEXTAREA', 'SELECT', 'LABEL'];
+    if (!interactiveTags.includes(tag)) {
+      createHeartBurst(e.clientX, e.clientY);
+
+      // If the first screen is active (wake-up screen), clicking anywhere should follow the walk
+      const firstScreen = document.querySelector('.screen');
+      const activeScreen = document.querySelector('.screen.active');
+      const walkBtn = document.getElementById('open-walk-btn');
+      if (firstScreen && activeScreen === firstScreen && walkBtn && !walkBtn.disabled) {
+        showTeaserThenGo('Hehe, ready for the walk? 😏', '😆', 'walk.html');
+      }
+    }
+  });
+
+  // Walk link integration (disable after completion using localStorage)
+  function updateWalkBtnState() {
+    const btn = document.getElementById('open-walk-btn');
+    if (!btn) return;
+    if (localStorage.getItem('walkCompleted') === '1') {
+      btn.disabled = true;
+      btn.textContent = 'Walk completed ✅';
+      btn.title = "You've already done the walk";
+    } else {
+      btn.disabled = false;
+      btn.onclick = (e) => {
+        e.preventDefault();
+        showTeaserThenGo('Hehe, ready for the walk? 😏', '😆', 'walk.html');
+      };
+    }
+  }
+
+  function showTeaserThenGo(message, laugh, url) {
+    let modal = document.getElementById('tease-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'tease-modal';
+      modal.className = 'tease-modal';
+      modal.innerHTML = '<div class="modal-content"><h2 id="tease-msg"></h2><p style="font-size:1.5rem" id="tease-laugh"></p></div>';
+      document.body.appendChild(modal);
+    }
+    document.getElementById('tease-msg').textContent = message;
+    document.getElementById('tease-laugh').textContent = laugh;
+    modal.classList.add('show');
+    setTimeout(() => {
+      modal.classList.remove('show');
+      window.location.href = url;
+    }, 1000);
+  }
+
+  // Update on load and when storage changes (in case user finishes walk in a different tab)
+  window.addEventListener('DOMContentLoaded', updateWalkBtnState);
+  window.addEventListener('storage', updateWalkBtnState);
+
+</script>
+
+</body>
+</html>

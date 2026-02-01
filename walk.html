@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Saturday, 14th Feb 💝</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+      height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a0f14 0%, #2d1b1e 50%, #1f1418 100%);
+      color: #fff5f0;
+      overflow: hidden;
+      position: relative;
+      touch-action: manipulation;
+    }
+
+    .particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 182, 193, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      from { transform: translateY(100vh) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      to { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+    }
+
+    main {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .screen {
+      position: absolute;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      padding: 20px;
+    }
+
+    .screen.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-weight: 600;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #fff5f0 0%, #ffc0cb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 400;
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #ffd1dc;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.9;
+      color: #f0e0d6;
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+
+    .highlight { color: #ffb6c1; font-weight: 600; }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1.5px solid rgba(255, 182, 193, 0.4);
+      color: #fff0f3;
+      padding: 16px 32px;
+      font-size: 15px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      touch-action: manipulation;
+    }
+
+    button:hover, button:active {
+      background: rgba(255, 182, 193, 0.15);
+      border-color: rgba(255, 182, 193, 0.8);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 182, 193, 0.2);
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .emoji { display: inline-block; transition: transform 0.3s; margin: 0 4px; }
+    button:hover .emoji { transform: scale(1.2); }
+
+    /* Fireworks Modal */
+    #fireworks-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.5s;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    #fireworks-modal.show { display: flex; opacity: 1; }
+
+    .modal-content h1 {
+      font-size: clamp(2rem, 7vw, 3.5rem);
+      margin-bottom: 20px;
+      animation: heartbeat 1.5s ease-in-out infinite;
+      text-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
+      -webkit-text-fill-color: #fff0f3;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* Treasure Hunt Styles */
+    .warning-box {
+      background: rgba(220, 20, 60, 0.1);
+      border: 1px solid rgba(220, 20, 60, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      animation: pulse-red 2s infinite;
+    }
+
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.2); }
+      50% { box-shadow: 0 0 20px 5px rgba(220, 20, 60, 0.1); }
+    }
+
+    .warning-box .icon { font-size: 32px; }
+    .warning-box p { margin: 0; font-size: 14px; color: #ffaeb9; }
+
+    .instruction-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 182, 193, 0.2);
+      border-radius: 20px;
+      padding: 24px;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffb6c1;
+      color: #1a0f14;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .lift-btn {
+      background: linear-gradient(135deg, rgba(255,105,180,0.2), rgba(255,20,147,0.1));
+      height: 60px;
+      position: relative;
+    }
+
+    .lift-progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: rgba(255,105,180,0.4);
+      transition: width 0.1s linear;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      max-width: 300px;
+      margin: 20px auto;
+    }
+
+    .kiss-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .kiss-emoji {
+      position: fixed;
+      font-size: 32px;
+      pointer-events: none;
+      animation: kissFloat 3s ease-out forwards;
+      z-index: 9999;
+    }
+
+    @keyframes kissFloat {
+      0% { transform: translateY(0) scale(0) rotate(0deg); opacity: 0; }
+      20% { transform: translateY(-50px) scale(1.2) rotate(10deg); opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-300px) scale(1) rotate(-10deg); opacity: 0; }
+    }
+
+    .shimmer {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .hidden-package {
+      font-size: 60px;
+      animation: floatPackage 3s ease-in-out infinite;
+      margin: 20px 0;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+    }
+
+    @keyframes floatPackage {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    /* Teaser modal used when finishing the walk */
+    .tease-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+    }
+    .tease-modal.show { display:flex; }
+    .tease-modal .modal-content {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,105,180,0.12);
+      padding: 28px;
+      border-radius: 18px;
+      text-align: center;
+      color: #ffdede;
+    }
+  </style>
+</head>
+<body>
+
+<div id="particles"></div>
+<canvas id="kiss-canvas" class="kiss-canvas"></canvas>
+
+<main>
+
+  <!-- Previous screens (1-6) would be here... -->
+  <!-- Assume we start at Screen 7: The Mission -->
+
+  <!-- 7. THE MISSION BRIEFING -->
+  <section class="screen active" id="screen-mission">
+    <div style="font-size: 48px; margin-bottom: 10px;">🎯</div>
+    <h1>Operation: Pillow Side</h1>
+    <div class="warning-box">
+      <span class="icon">📱</span>
+      <div>
+        <strong style="color: #ff6b6b; display: block; margin-bottom: 4px;">CRITICAL: Do Not Leave Me Behind!</strong>
+        <p>Bring your phone with you. I need to guide you every step of the way.</p>
+      </div>
+    </div>
+    <p>
+      The digital surprise was just the beginning.<br>
+      Your real gift is waiting... but you have to work for it.<br>
+      <span class="highlight">Are you ready for a treasure hunt?</span>
+    </p>
+    <div class="btn-group">
+      <button onclick="startHunt()">
+        I have my phone. Let's go! <span class="emoji">🚀</span>
+      </button>
+      <button onclick="alert('Go grab your phone first, silly! Then click the main button! 📱')" style="opacity: 0.6; font-size: 13px;">
+        I left my phone...
+      </button>
+    </div>
+  </section>
+
+  <!-- 8. THE WALK -->
+  <section class="screen" id="screen-walk">
+    <div style="font-size: 40px; margin-bottom: 10px;">🚶‍♀️</div>
+    <h2>The Journey Begins</h2>
+    <div class="instruction-card">
+      <div class="step-number">1</div>
+      <p style="margin: 10px 0 0 0; font-style: italic;">
+        "Take me with you and walk to where you sleep.<br>
+        Don't get distracted by the mirror checking how cute you look.<br>
+        Yes, you look amazing. Now keep walking."
+      </p>
+    </div>
+    <p style="font-size: 14px; color: #d4a59a;">
+      (Hold the button while walking... don't trip! 🦶)
+    </p>
+    <button class="lift-btn" onmousedown="startWalking()" onmouseup="stopWalking()" onmouseleave="stopWalking()" ontouchstart="startWalking()" ontouchend="stopWalking()">
+      <div class="lift-progress" id="walk-progress"></div>
+      <span style="position: relative; z-index: 2;">Hold to Walk to Bedroom 🛏️</span>
+    </button>
+    <p id="walk-hint" style="font-size: 13px; color: #888; margin-top: 15px;"></p>
+  </section>
+
+  <!-- 9. ARRIVAL CHECK -->
+  <section class="screen" id="screen-arrival">
+    <div style="font-size: 40px; margin-bottom: 10px;">🛏️</div>
+    <h2>Made it in one piece?</h2>
+    <p>
+      Excellent. Now... are you actually at your bed,<br>
+      or are you sitting on the couch because you got tired?<br>
+      <span style="font-size: 14px; opacity: 0.8;">(I know you. Don't lie to me.)</span>
+    </p>
+    <div class="btn-group">
+      <button onclick="nextHuntScreen()">
+        I'm at my bed! <span class="emoji">✅</span>
+      </button>
+      <button onclick="couchTease()" style="border-style: dashed; opacity: 0.7;">
+        I'm on the couch... <span class="emoji">😅</span>
+      </button>
+    </div>
+    <p id="couch-response" style="color: #ffb6c1; font-style: italic; margin-top: 20px; opacity: 0; transition: opacity 0.5s;"></p>
+  </section>
+
+  <!-- 10. NAVIGATE TO PILLOW SIDE -->
+  <section class="screen" id="screen-pillow">
+    <div style="font-size: 40px; margin-bottom: 10px;">🧭</div>
+    <h2>Pillow Side Protocol</h2>
+    <div class="instruction-card">
+      <div class="step-number">2</div>
+      <p style="margin: 10px 0 0 0;">
+        Go to the <strong style="color: #ffb6c1;">pillow side</strong> of the bed.<br>
+        Yes, the head of the bed.<br>
+        Where you lay your beautiful, sleepy head every night.
+      </p>
+    </div>
+    <p style="font-size: 14px; font-style: italic; color: #d4a59a;">
+      "But which side is the pillow side?"<br>
+      The one with the pillows, smarty-pants. 🙄
+    </p>
+    <div class="choice-grid">
+      <button onclick="wrongSide('left')">Left Side ⬅️</button>
+      <button onclick="wrongSide('right')">Right Side ➡️</button>
+      <button onclick="wrongSide('foot')">Foot of Bed ⬇️</button>
+      <button onclick="correctSide()" style="border-color: rgba(255,215,0,0.5);">Head/Pillow Side ⬆️</button>
+    </div>
+    <p id="side-hint" style="margin-top: 15px; min-height: 24px; color: #ff6b6b; font-size: 14px;"></p>
+  </section>
+
+  <!-- 11. THE LIFT -->
+  <section class="screen" id="screen-lift">
+    <div style="font-size: 40px; margin-bottom: 10px;">💪</div>
+    <h2>Show Me Those Muscles</h2>
+    <div class="instruction-card">
+      <div class="step-number">3</div>
+      <p style="margin: 10px 0 0 0;">
+        Carefully lift the <strong style="color: #ffb6c1;">mattress at the pillow side</strong>.<br>
+        Just enough to peek underneath.<br>
+        Don't drop your phone! Hold it tight.
+      </p>
+    </div>
+    <p style="font-size: 14px; color: #d4a59a;">
+      (I hope you cleaned under there... 😏)
+    </p>
+    <button class="lift-btn" onmousedown="startLift()" onmouseup="stopLift()" onmouseleave="stopLift()" ontouchstart="startLift()" ontouchend="stopLift()">
+      <div class="lift-progress" id="lift-progress"></div>
+      <span style="position: relative; z-index: 2;">Hold to Lift Mattress 💪</span>
+    </button>
+    <p id="lift-hint" style="font-size: 13px; color: #888; margin-top: 15px;">
+      Hold for 3 seconds... pretend it's heavy!
+    </p>
+  </section>
+
+  <!-- 12. THE DISCOVERY -->
+  <section class="screen" id="screen-discovery">
+    <div class="hidden-package">🎁</div>
+    <h2>What do you see?</h2>
+    <p>
+      Is there a package? A letter?<br>
+      Something wrapped suspiciously like a gift<br>
+      that definitely wasn't there yesterday?
+    </p>
+    <div class="btn-group">
+      <button onclick="foundIt()">
+        I see it! <span class="emoji">😍</span>
+      </button>
+      <button onclick="notThere()" style="opacity: 0.7;">
+        I don't see anything... <span class="emoji">😢</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- 13. THE PRE-KISS SUSPENSE -->
+  <section class="screen" id="screen-suspense">
+    <div style="font-size: 48px; margin-bottom: 10px;">👀</div>
+    <h2>Before You Open It...</h2>
+    <p>
+      Close your eyes for 3 seconds.<br>
+      No peeking! I can see you... 👁️<br>
+      Think about how much I adore you.<br>
+      And how you're definitely not allowed to open this gift until you get your virtual kisses.
+    </p>
+    <button onclick="startCountdown()" id="close-eyes-btn">
+      My eyes are closed <span class="emoji">🙈</span>
+    </button>
+    <div id="countdown" style="font-size: 60px; font-family: 'Cormorant Garamond'; color: #ffb6c1; margin: 20px 0; opacity: 0; transition: opacity 0.5s;">
+      3... 2... 1...
+    </div>
+  </section>
+
+  <!-- 14. KISS ATTACK -->
+  <section class="screen" id="screen-kisses">
+    <h1 style="font-size: 3rem; margin-bottom: 10px;">💋💋💋</h1>
+    <h2>Kiss Attack!</h2>
+    <p>
+      Happy Valentine's Day, Sweetheart!<br>
+      Click anywhere for more kisses!<br>
+      Then you may open your gift.
+    </p>
+    <p style="font-size: 14px; color: #888; margin-top: 40px;">
+      (You earned this treasure 💝)
+    </p>
+    <div class="btn-group" style="margin-top: 18px;">
+      <button id="done-walk-btn" onclick="finishWalk()">Done / Close <span class="emoji">✅</span></button>
+    </div>
+  </section>
+
+</main>
+
+<!-- Fireworks Modal (Previous) -->
+<div id="fireworks-modal" onclick="closeFireworks()">
+  <canvas id="fireworks-canvas"></canvas>
+  <div class="modal-content">
+    <h1>Happy Valentine's Day<br>Sweetheart! 💝</h1>
+    <p style="font-size: 1.2rem; color: #ffd1dc; margin-bottom: 10px;">
+      You make every Saturday feel like magic.
+    </p>
+    <p style="font-size: 14px; opacity: 0.7;">Click anywhere to continue...</p>
+  </div>
+</div>
+
+<script>
+  // Screen Management
+  let currentScreen = 0;
+  const screens = document.querySelectorAll('.screen');
+  
+  // Start from mission screen (assuming previous screens existed)
+  // To chain from previous fireworks:
+  window.onload = () => {
+    // If coming from previous file, you'd call launchFireworks() first
+    // For demo, we start at mission
+    document.getElementById('screen-mission').classList.add('active');
+  };
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function startHunt() {
+    showScreen('screen-walk');
+  }
+
+  // Walking Mechanic
+  let walkInterval, walkProgress = 0;
+  function startWalking() {
+    document.getElementById('walk-hint').textContent = "Walking... don't trip! 🚶‍♀️";
+    walkInterval = setInterval(() => {
+      walkProgress += 1.5;
+      document.getElementById('walk-progress').style.width = walkProgress + '%';
+      if (walkProgress >= 100) {
+        clearInterval(walkInterval);
+        showScreen('screen-arrival');
+        createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+      }
+    }, 30);
+  }
+
+  function stopWalking() {
+    clearInterval(walkInterval);
+    if (walkProgress < 100) {
+      walkProgress = Math.max(0, walkProgress - 5);
+      document.getElementById('walk-progress').style.width = walkProgress + '%';
+      document.getElementById('walk-hint').textContent = "Keep holding! We need to get to the bedroom!";
+    }
+  }
+
+  // Couch Tease
+  function couchTease() {
+    const msg = document.getElementById('couch-response');
+    msg.innerHTML = "Nice try. Get up and go to the bed. I'll wait. 😒<br><small>(Don't forget your phone!)</small>";
+    msg.style.opacity = '1';
+    setTimeout(() => {
+      msg.innerHTML += "<br><br>Okay, now click the right button! ⬆️";
+    }, 2000);
+  }
+
+  function nextHuntScreen() {
+    showScreen('screen-pillow');
+  }
+
+  // Pillow Side Logic
+  function wrongSide(side) {
+    const hints = {
+      left: "Left? That's where you steal the blankets from. Try again!",
+      right: "Right? That's my side! Wrong answer!",
+      foot: "The FOOT? Do you put your pillow by your feet? Weirdo."
+    };
+    document.getElementById('side-hint').textContent = hints[side];
+    // Shake effect
+    document.getElementById('screen-pillow').style.transform = 'translateX(10px)';
+    setTimeout(() => document.getElementById('screen-pillow').style.transform = '', 100);
+  }
+
+  function correctSide() {
+    createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+    showScreen('screen-lift');
+  }
+
+  // Lifting Mechanic
+  let liftInterval, liftProgress = 0;
+  function startLift() {
+    document.getElementById('lift-hint').textContent = "Lifting... heavy! 💪";
+    liftInterval = setInterval(() => {
+      liftProgress += 1.5;
+      document.getElementById('lift-progress').style.width = liftProgress + '%';
+      if (liftProgress >= 100) {
+        clearInterval(liftInterval);
+        showScreen('screen-discovery');
+        confettiEffect();
+      }
+    }, 30);
+  }
+
+  function stopLift() {
+    clearInterval(liftInterval);
+    if (liftProgress < 100) {
+      liftProgress = 0;
+      document.getElementById('lift-progress').style.width = '0%';
+      document.getElementById('lift-hint').textContent = "You dropped it! Hold longer! The gift is heavy! 😤";
+    }
+  }
+
+  // Discovery Responses
+  function foundIt() {
+    createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+    showScreen('screen-suspense');
+  }
+
+  function notThere() {
+    alert("Check again! Look under the pillow-side corner of the mattress! Did you lift it high enough? 🤔\n\n(Hint: Try the 'Hold to Lift' button again and really commit!)");
+  }
+
+  // Countdown
+  function startCountdown() {
+    const btn = document.getElementById('close-eyes-btn');
+    const count = document.getElementById('countdown');
+    btn.style.display = 'none';
+    count.style.opacity = '1';
+    
+    let num = 3;
+    count.textContent = num + "...";
+    
+    const timer = setInterval(() => {
+      num--;
+      if (num > 0) {
+        count.textContent = num + "...";
+      } else {
+        clearInterval(timer);
+        count.innerHTML = "OPEN! 💋";
+        setTimeout(() => {
+          showScreen('screen-kisses');
+          startKissAttack();
+        }, 800);
+      }
+    }, 1000);
+  }
+
+  // Kiss Attack System
+  function startKissAttack() {
+    // Auto shower kisses
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => dropKiss(), i * 300);
+    }
+    
+    // Click for more
+    document.addEventListener('click', (e) => {
+      if (document.getElementById('screen-kisses').classList.contains('active')) {
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => dropKiss(e.clientX + (Math.random()-0.5)*50, e.clientY + (Math.random()-0.5)*50), i*50);
+        }
+      }
+    });
+  }
+
+  function dropKiss(x, y) {
+    const kiss = document.createElement('div');
+    kiss.className = 'kiss-emoji';
+    const kisses = ['💋', '💕', '💖', '😘', '❤️', '💝'];
+    kiss.textContent = kisses[Math.floor(Math.random() * kisses.length)];
+    
+    // Random position if not specified
+    const posX = x || Math.random() * window.innerWidth;
+    const posY = y || window.innerHeight + 50;
+    
+    kiss.style.left = posX + 'px';
+    kiss.style.top = posY + 'px';
+    kiss.style.setProperty('--tx', (Math.random() - 0.5) * 100 + 'px');
+    
+    document.body.appendChild(kiss);
+    setTimeout(() => kiss.remove(), 3000);
+  }
+
+  // Visual Effects
+  function createHeartBurst(x, y) {
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        const heart = document.createElement('div');
+        heart.style.position = 'fixed';
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.fontSize = '24px';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '9999';
+        heart.textContent = ['💕', '💖', '💗', '💘'][Math.floor(Math.random()*4)];
+        heart.animate([
+          { transform: 'translate(0,0) scale(0)', opacity: 1 },
+          { transform: `translate(${(Math.random()-0.5)*200}px, ${(Math.random()-0.5)*200}px) scale(1.5)`, opacity: 0 }
+        ], {
+          duration: 1000,
+          easing: 'ease-out'
+        });
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+      }, i * 50);
+    }
+  }
+
+  function confettiEffect() {
+    for (let i = 0; i < 30; i++) {
+      setTimeout(() => {
+        const conf = document.createElement('div');
+        conf.style.position = 'fixed';
+        conf.style.left = Math.random() * window.innerWidth + 'px';
+        conf.style.top = '-10px';
+        conf.style.width = '10px';
+        conf.style.height = '10px';
+        conf.style.background = ['#ffb6c1', '#ffd700', '#ff69b4'][Math.floor(Math.random()*3)];
+        conf.style.borderRadius = '50%';
+        conf.style.pointerEvents = 'none';
+        conf.style.zIndex = '9998';
+        conf.animate([
+          { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+          { transform: `translateY(${window.innerHeight}px) rotate(720deg)`, opacity: 0 }
+        ], {
+          duration: 2000 + Math.random() * 1000,
+          easing: 'ease-in'
+        });
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 3000);
+      }, i * 50);
+    }
+  }
+
+  // Ambient particles
+  for (let i = 0; i < 15; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDelay = Math.random() * 20 + 's';
+    p.style.animationDuration = (15 + Math.random() * 10) + 's';
+    document.getElementById('particles').appendChild(p);
+  }
+
+  // Placeholder Fireworks functions (integrate with previous)
+  function launchFireworks() {
+    document.getElementById('fireworks-modal').classList.add('show');
+    // Previous fireworks canvas code would go here
+  }
+
+  function closeFireworks() {
+    document.getElementById('fireworks-modal').classList.remove('show');
+    showScreen('screen-mission');
+  }
+
+  // Finish the walk and mark as completed
+  function finishWalk() {
+    try {
+      localStorage.setItem('walkCompleted', '1');
+    } catch (e) {
+      console.warn('localStorage not available', e);
+    }
+    showTeaserAndReturn("You did it! I won't let you do that again 😏", "😆");
+  }
+
+  function showTeaserAndReturn(message, laugh) {
+    let modal = document.getElementById('tease-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'tease-modal';
+      modal.className = 'tease-modal';
+      modal.innerHTML = '<div class="modal-content"><h2 id="tease-msg"></h2><p style="font-size:1.5rem" id="tease-laugh"></p></div>';
+      document.body.appendChild(modal);
+    }
+    document.getElementById('tease-msg').textContent = message;
+    document.getElementById('tease-laugh').textContent = laugh;
+    modal.classList.add('show');
+    setTimeout(() => {
+      modal.classList.remove('show');
+      // go back to index where the button will now be disabled
+      window.location.href = 'index.html';
+    }, 1200);
+  }
+
+  // If the page loads and walk was already completed, disable any walk-specific interactive buttons
+  window.addEventListener('DOMContentLoaded', () => {
+    if (localStorage.getItem('walkCompleted') === '1') {
+      // Optionally show a small note or auto-send back to index
+      // document.body.innerHTML = '<p style="padding:20px;">Walk already completed.</p>';
+    }
+  });
+
+</script>
+
+</body>
+</html>
