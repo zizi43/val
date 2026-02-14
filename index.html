@@ -438,9 +438,9 @@
     <h1>Rise and shine,<br>sleepy beauty! ☀️</h1>
     <p>
       Guess what? It's <span class="highlight">Saturday</span> — no alarm, no rush, <br>
-      no "I'll be late for work." Just you, me, and this digital love letter.<br><br>
-      Are you awake enough to handle some compliments,<br>
-      or do you need coffee first? ☕️
+      just us, cuddles, and this digital love letter from your favorite person. 😊<br><br>
+      Time to remind you how amazing you are,<br>
+      and how lucky I am to have you. 💕
     </p>
     <div class="btn-group">
       <button onclick="nextScreen()">I'm awake! Bring it on <span class="emoji">💪</span></button>
@@ -457,11 +457,12 @@
     </div>
     <p style="margin-top: clamp(16px, 4vw, 24px); font-style: italic;">
       This is the person I think about most.<br>
-      This is the girl who makes my heart skip. 💕
+      This is the girl who makes my heart skip. 💕<br>
+      The girl I want to cuddle forever. 🤗
     </p>
     <p style="margin-top: clamp(12px, 3vw, 20px); font-size: clamp(14px, 3.5vw, 15px);">
       Do you remember why I asked you to write that thing?<br>
-      Do you know what I was planning?
+      Do you know what I was planning? 😏
     </p>
     <div class="btn-group" id="memory-buttons">
       <button onclick="handleMemoryQuestion('yes')">Yes, I remember! 💭</button>
@@ -475,13 +476,13 @@
     <h2>Before we get sappy...</h2>
     <div class="tease-card">
       <div id="roast-text" class="tease-text">
-        Quick question: Do you know what you always do late night in deep sleep?
+        Real talk: What's the cutest thing you do when we're together?
       </div>
     </div>
     <div class="btn-group" id="roast-buttons">
-      <button onclick="revealRoast('blankets')">Stole all the blankets? 🥶</button>
-      <button onclick="revealRoast('sleep')">Kicked me  in your sleep? 🦵</button>
-      <button onclick="revealRoast('snore')">Made tiny sleepy noises? 😴</button>
+      <button onclick="revealRoast('blankets')">Wake up for midnight bathroom trips? 🚽</button>
+      <button onclick="revealRoast('sleep')">Cuddle me like your favorite pillow? 🛏️</button>
+      <button onclick="revealRoast('snore')">Those adorable sleepy sounds? 😴</button>
     </div>
     <p id="roast-reveal" style="font-style: italic; color: #ffd1dc; margin-top: 20px; opacity: 0; transition: opacity 0.5s;"></p>
     <button id="roast-continue" onclick="nextScreen()" style="display: none; margin-top: 20px;">Okay, you got me <span class="emoji">😅</span></button>
@@ -489,10 +490,11 @@
 
   <!-- 3. THE SMILE TEST -->
   <section class="screen">
-    <h2>Smile Check! 😊</h2>
+    <h2>The Smile Test 😊</h2>
     <p>
-      I need to verify something important.<br>
-      Type the word that describes what I'm making you do right now:
+      You know what I love most?<br>
+      That smile you give me during our sweet cuddle sessions.<br><br>
+      Type the word that makes my heart melt:
     </p>
     <input type="text" id="smile-input" class="love-input" placeholder="Hint: S _ _ L E" maxlength="5">
     <div id="smile-validation" class="validation-msg">There it is! That beautiful smile 💕</div>
@@ -504,15 +506,15 @@
   <section class="screen">
     <h2>Pop Quiz! 📝</h2>
     <p>
-      What do I love most about you on this<br>
-      beautiful Saturday morning?
+      What do I love most about you?<br>
+      (Hint: It's not just one thing...)
     </p>
     <div class="btn-group">
-      <button onclick="wrongAnswer(this)">Your perfect hair 💁‍♀️</button>
-      <button onclick="wrongAnswer(this)">Your dazzling intellect 🧠</button>
+      <button onclick="wrongAnswer(this)">Your laugh that makes me smile? 😂</button>
+      <button onclick="wrongAnswer(this)">The care you show me every day? 💖</button>
       <button class="hold-btn" onmousedown="startHold()" onmouseup="endHold()" onmouseleave="endHold()" ontouchstart="startHold()" ontouchend="endHold()">
         <div class="progress" id="hold-progress"></div>
-        <span style="position: relative; z-index: 2;">Everything (Hold to confirm) ❤️</span>
+        <span style="position: relative; z-index: 2;">All of You! (Hold it) 💕</span>
       </button>
     </div>
     <p id="quiz-hint" style="font-size: 13px; color: #888; margin-top: 20px;"></p>
@@ -520,17 +522,17 @@
 
   <!-- 5. MEMORY GAME -->
   <section class="screen">
-    <h2>Remember When... 💭</h2>
-    <p>Click the memory that makes you laugh the most:</p>
+    <h2>Sweet Memories With You 💭</h2>
+    <p>Pick the moment that means the most to you:</p>
     <div class="btn-group">
       <button onclick="showMemory(this, 'toast')" style="text-align: left; padding-left: 24px;">
-        🍞 You burnt toast & tried to hide it
+        🍞 Cute domestic moments together
       </button>
       <button onclick="showMemory(this, 'dance')" style="text-align: left; padding-left: 24px;">
-        💃 Our weird dance
+        💃 Our goofy, silly moments
       </button>
-      <button onclick="showMemory(this, 'blanket')" style="text-align: left; padding-left: 24px;">
-        🛌 My ilarus reactions to things around us
+      <button onclick="showMemory(this, 'bathroom')" style="text-align: left; padding-left: 24px;">
+        🛏️ Cozy cuddle nights together
       </button>
     </div>
     <div id="memory-reveal" style="margin-top: 24px; font-family: 'Cormorant Garamond'; font-style: italic; font-size: 1.3rem; color: #ffb6c1; opacity: 0; transition: all 0.5s; transform: translateY(10px);"></div>
@@ -557,8 +559,11 @@
       </p>
     </div>
     <p style="margin-top: 24px; font-size: 0.9rem; color: #ffd1dc;">
-      Thank you for being patient with me.<br>
-      Thank you for being the person I think about most. 🌹
+      Thank you for the cuddles that make everything okay. 🤗<br>
+      Thank you for the care you show me every single day. 💖<br>
+      Thank you for being the one I think about most. 🌹<br>
+      <br>
+      <span style="color: #ffb6c1; font-size: 1rem;">I love you, Janet. 💕</span>
     </p>
     <button onclick="launchFireworks()" style="background: linear-gradient(135deg, rgba(255,105,180,0.3), rgba(255,20,147,0.2)); border-color: rgba(255,105,180,0.6); font-size: 18px; padding: 20px 40px; margin-top: 20px;">
       Go on 🎆
@@ -573,7 +578,9 @@
   <div class="modal-content">
     <h1>Happy Valentine's Day<br>Sweetheart! 💝</h1>
     <p style="font-size: 1.3rem; color: #ffd1dc; margin-bottom: 10px;">
-      You make every momment feels like magic whenever we are together.
+      You make every moment feel like magic—the cuddles, the laughs,<br>
+      the sweet sessions, and all the care you show me.<br>
+      You're my everything, Janet. 💕
     </p>
     <p class="click-hint">(Click anywhere to continue)</p>
   </div>
@@ -603,9 +610,9 @@
 
   // Roast interaction
   const roastResponses = {
-    blankets: "Correct! You were wrapped like a burrito. I was freezing, but watching you sleep all cozy was worth it. 🌯❄️",
-    sleep: "Close! You actually did all three, but the blanket theft was especially impressive last night.",
-    snore: "Those tiny noises are adorable, but the blanket situation was criminal! 😄"
+    blankets: "You know... waking up at 3 AM, 5 AM, and 7 AM to use the bathroom. 😴 But I don't mind because I get to see you stumble around half-asleep, and honestly? That's adorable. 💕",
+    sleep: "Close! You actually do wake up multiple times in the night, and it's the cutest thing watching you rush to the bathroom all sleepy. 😄",
+    snore: "Those tiny sleepy noises are sweet, but the frequent bathroom trips? That's the real highlight of our nights together! 🚽💕"
   };
 
   // Photo memory question handler
@@ -717,9 +724,9 @@
   // Memory selection
   function showMemory(btn, type) {
     const responses = {
-      toast: "The smoke alarm was cheering you on! But you made new toast and smiled anyway. That's resilience. 🍞🔥",
-      dance: "That moment lives rent-free in my head forever. No rhythm, all joy. 💃🕺",
-      blanket: "Historical fact: You won. I surrendered. But I got cuddles, so actually I won. 🏳️❤️"
+      toast: "Those quiet moments in the kitchen, just you and me. Simple, real, and absolutely perfect. That's us. 🍞💕",
+      dance: "You dancing like nobody's watching, and me just watching you with the biggest smile. Pure joy, pure you. No judgment, just love. 💃❤️",
+      bathroom: "Late night cuddles that turn into early morning cuddles. You in my arms, your sleepy smile... that's everything to me. 🛏️💕 And yes, those bathroom trips too—I love every quirky bit of you!"
     };
     
     document.querySelectorAll('.btn-group button').forEach(b => b.style.opacity = '0.3');
