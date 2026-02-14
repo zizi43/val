@@ -12,14 +12,24 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
-      height: 100vh;
+      min-height: 100vh;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #1a0f14 0%, #2d1b1e 50%, #1f1418 100%);
       color: #fff5f0;
-      overflow: hidden;
+      overflow-x: hidden;
       position: relative;
     }
 
@@ -42,25 +52,26 @@
     }
 
     main {
-      height: 100%;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: max(16px, 5vw);
       position: relative;
       z-index: 10;
+      width: 100%;
     }
 
     .screen {
       position: absolute;
-      max-width: 480px;
+      max-width: min(480px, 100vw - 32px);
       width: 100%;
       text-align: center;
       opacity: 0;
       transform: translateY(30px) scale(0.95);
       transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
       pointer-events: none;
-      padding: 20px;
+      padding: clamp(16px, 5vw, 24px);
     }
 
     .screen.active {
@@ -71,9 +82,9 @@
 
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      font-size: clamp(1.8rem, 8vw, 3.2rem);
       font-weight: 600;
-      margin-bottom: 12px;
+      margin-bottom: clamp(8px, 3vw, 12px);
       background: linear-gradient(135deg, #fff5f0 0%, #ffc0cb 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -83,34 +94,34 @@
 
     h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 6vw, 2.4rem);
+      font-size: clamp(1.4rem, 6vw, 2.4rem);
       font-weight: 400;
       font-style: italic;
-      margin-bottom: 20px;
+      margin-bottom: clamp(12px, 4vw, 20px);
       color: #ffd1dc;
     }
 
     p {
-      font-size: 16.5px;
+      font-size: clamp(14px, 4.5vw, 16.5px);
       line-height: 1.9;
       color: #f0e0d6;
-      margin-bottom: 32px;
+      margin-bottom: clamp(16px, 5vw, 32px);
       font-weight: 300;
     }
 
     .date-chip {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: clamp(6px, 2vw, 8px);
       background: rgba(255, 182, 193, 0.1);
       border: 1px solid rgba(255, 182, 193, 0.3);
-      padding: 8px 20px;
+      padding: clamp(6px, 2vw, 8px) clamp(16px, 4vw, 20px);
       border-radius: 30px;
-      font-size: 12px;
+      font-size: clamp(10px, 2.5vw, 12px);
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #ffb6c1;
-      margin-bottom: 24px;
+      margin-bottom: clamp(16px, 4vw, 24px);
       backdrop-filter: blur(10px);
       animation: pulse 3s infinite;
     }
@@ -124,17 +135,18 @@
     .btn-group {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: clamp(10px, 3vw, 12px);
       max-width: 320px;
       margin: 0 auto;
+      width: 100%;
     }
 
     button {
       background: rgba(255, 255, 255, 0.05);
       border: 1.5px solid rgba(255, 182, 193, 0.4);
       color: #fff0f3;
-      padding: 16px 32px;
-      font-size: 15px;
+      padding: clamp(14px, 3.5vw, 16px) clamp(24px, 6vw, 32px);
+      font-size: clamp(13px, 4vw, 15px);
       border-radius: 50px;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -142,6 +154,9 @@
       position: relative;
       overflow: hidden;
       backdrop-filter: blur(10px);
+      min-height: 44px;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     button:hover {
@@ -153,6 +168,13 @@
 
     button:active {
       transform: translateY(-1px) scale(0.98);
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      button {
+        padding: clamp(16px, 4vw, 18px) clamp(28px, 7vw, 36px);
+        min-height: 48px;
+      }
     }
 
     button .emoji {
@@ -186,9 +208,9 @@
     .tease-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 28px;
-      margin: 20px 0;
+      border-radius: clamp(16px, 4vw, 20px);
+      padding: clamp(20px, 5vw, 28px);
+      margin: clamp(12px, 4vw, 20px) 0;
       position: relative;
       overflow: hidden;
     }
@@ -198,14 +220,14 @@
       position: absolute;
       top: -10px;
       right: 10px;
-      font-size: 60px;
+      font-size: clamp(40px, 15vw, 60px);
       opacity: 0.1;
       transform: rotate(15deg);
     }
 
     .tease-text {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: clamp(18px, 5vw, 22px);
       font-style: italic;
       color: #ffe4e1;
       line-height: 1.5;
@@ -218,7 +240,7 @@
     .giggle-btn {
       background: transparent;
       border: 2px dashed rgba(255, 182, 193, 0.4);
-      margin-top: 10px;
+      margin-top: clamp(6px, 2vw, 10px);
     }
 
     .giggle-btn:hover {
@@ -231,7 +253,7 @@
       position: fixed;
       pointer-events: none;
       animation: burst 1s ease-out forwards;
-      font-size: 24px;
+      font-size: clamp(20px, 5vw, 24px);
       z-index: 100;
     }
 
@@ -252,6 +274,8 @@
       opacity: 0;
       transition: opacity 0.5s;
       backdrop-filter: blur(5px);
+      width: 100%;
+      height: 100%;
     }
 
     #fireworks-modal.show {
@@ -262,12 +286,13 @@
     .modal-content {
       text-align: center;
       z-index: 10;
-      padding: 40px;
+      padding: clamp(24px, 6vw, 40px);
+      max-width: 90vw;
     }
 
     .modal-content h1 {
-      font-size: clamp(2.5rem, 8vw, 4rem);
-      margin-bottom: 20px;
+      font-size: clamp(2rem, 8vw, 4rem);
+      margin-bottom: clamp(12px, 4vw, 20px);
       animation: heartbeat 1.5s ease-in-out infinite;
       text-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
       -webkit-text-fill-color: #fff0f3;
@@ -286,9 +311,9 @@
     }
 
     .click-hint {
-      font-size: 13px;
+      font-size: clamp(11px, 3vw, 13px);
       color: #888;
-      margin-top: 20px;
+      margin-top: clamp(12px, 3vw, 20px);
       animation: bounce 2s infinite;
     }
 
@@ -299,9 +324,9 @@
 
     .secret-reveal {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
+      font-size: clamp(1rem, 4vw, 1.4rem);
       color: #ffd1dc;
-      margin-top: 30px;
+      margin-top: clamp(20px, 5vw, 30px);
       opacity: 0;
       transform: translateY(20px);
       transition: all 1s ease 2s;
@@ -322,15 +347,18 @@
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid rgba(255, 182, 193, 0.3);
       border-radius: 50px;
-      padding: 14px 24px;
+      padding: clamp(12px, 3vw, 14px) clamp(18px, 4vw, 24px);
       color: #fff;
-      font-size: 16px;
+      font-size: clamp(14px, 4vw, 16px);
       width: 100%;
       max-width: 300px;
-      margin: 10px 0;
+      margin: clamp(6px, 2vw, 10px) 0;
       text-align: center;
       outline: none;
       transition: all 0.3s;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 50px;
     }
 
     .love-input:focus {
@@ -340,7 +368,7 @@
 
     .validation-msg {
       height: 24px;
-      font-size: 14px;
+      font-size: clamp(12px, 3vw, 14px);
       color: #90ee90;
       margin-top: 8px;
       opacity: 0;
@@ -361,15 +389,37 @@
       z-index: 2000;
       background: rgba(0,0,0,0.6);
       backdrop-filter: blur(4px);
+      width: 100%;
+      height: 100%;
     }
     .tease-modal.show { display:flex; }
     .tease-modal .modal-content {
       background: rgba(255,255,255,0.02);
       border: 1px solid rgba(255,182,193,0.2);
-      padding: 28px;
-      border-radius: 18px;
+      padding: clamp(20px, 5vw, 28px);
+      border-radius: clamp(14px, 4vw, 18px);
       text-align: center;
       color: #ffdede;
+      max-width: 90vw;
+    }
+
+    /* Image responsive */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Fix for iOS Safari */
+    @supports (-webkit-touch-callout: none) {
+      body {
+        height: 100vh;
+        height: 100dvh;
+      }
+      main {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
     }
   </style>
 </head>
@@ -394,22 +444,43 @@
     </p>
     <div class="btn-group">
       <button onclick="nextScreen()">I'm awake! Bring it on <span class="emoji">💪</span></button>
-      <button onclick="coffeeMode()" style="opacity: 0.8; font-size: 13px;">Still need caffeine...</button>
-      <button id="open-walk-btn" class="walk-link-btn">Follow the Walk 🚶‍♀️</button>
+      <button onclick="coffeeMode()" style="opacity: 0.8; font-size: 13px;">Still need tea...</button>
+     
     </div>
   </section>
 
-  <!-- 2. THE ROAST (Interactive Teasing) -->
+  <!-- 2. PHOTO REVEAL & MEMORY QUESTION -->
+  <section class="screen">
+    <h2>I want you to see something... 📸</h2>
+    <div style="margin: clamp(20px, 5vw, 30px) 0; border-radius: clamp(12px, 3vw, 15px); overflow: hidden; box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3); border: 2px solid rgba(255, 182, 193, 0.3); max-width: min(300px, 80vw); margin-left: auto; margin-right: auto;">
+      <img src="janet.png" alt="You" style="width: 100%; height: auto; display: block;">
+    </div>
+    <p style="margin-top: clamp(16px, 4vw, 24px); font-style: italic;">
+      This is the person I think about most.<br>
+      This is the girl who makes my heart skip. 💕
+    </p>
+    <p style="margin-top: clamp(12px, 3vw, 20px); font-size: clamp(14px, 3.5vw, 15px);">
+      Do you remember why I asked you to write that thing?<br>
+      Do you know what I was planning?
+    </p>
+    <div class="btn-group" id="memory-buttons">
+      <button onclick="handleMemoryQuestion('yes')">Yes, I remember! 💭</button>
+      <button onclick="handleMemoryQuestion('no')">No... tell me? 🤔</button>
+    </div>
+    <div id="memory-response" style="margin-top: 24px; opacity: 0; transition: opacity 0.5s;"></div>
+  </section>
+
+  <!-- 2b. THE ROAST (Interactive Teasing) -->
   <section class="screen">
     <h2>Before we get sappy...</h2>
     <div class="tease-card">
       <div id="roast-text" class="tease-text">
-        Quick question: Do you know what you did at 3 AM last night?
+        Quick question: Do you know what you always do late night in deep sleep?
       </div>
     </div>
     <div class="btn-group" id="roast-buttons">
       <button onclick="revealRoast('blankets')">Stole all the blankets? 🥶</button>
-      <button onclick="revealRoast('sleep')">Kicked me in your sleep? 🦵</button>
+      <button onclick="revealRoast('sleep')">Kicked me  in your sleep? 🦵</button>
       <button onclick="revealRoast('snore')">Made tiny sleepy noises? 😴</button>
     </div>
     <p id="roast-reveal" style="font-style: italic; color: #ffd1dc; margin-top: 20px; opacity: 0; transition: opacity 0.5s;"></p>
@@ -456,10 +527,10 @@
         🍞 You burnt toast & tried to hide it
       </button>
       <button onclick="showMemory(this, 'dance')" style="text-align: left; padding-left: 24px;">
-        💃 That weird dance in the kitchen
+        💃 Our weird dance
       </button>
       <button onclick="showMemory(this, 'blanket')" style="text-align: left; padding-left: 24px;">
-        🛌 The Great Blanket War of 2025
+        🛌 My ilarus reactions to things around us
       </button>
     </div>
     <div id="memory-reveal" style="margin-top: 24px; font-family: 'Cormorant Garamond'; font-style: italic; font-size: 1.3rem; color: #ffb6c1; opacity: 0; transition: all 0.5s; transform: translateY(10px);"></div>
@@ -468,14 +539,29 @@
 
   <!-- 6. THE GRAND FINALE -->
   <section class="screen">
-    <h2>Ready for your surprise? 🎁</h2>
+    <h2>A Real Talk From My Heart 💝</h2>
     <p>
-      I've been saving the best for last.<br>
-      Close your eyes, take a deep breath...<br>
-      and click below when you're ready.
+      I know I don't have a physical gift for you right now.<br>
+      Financial constraints have been tough, and I'm sorry about that. 😔
     </p>
-    <button onclick="launchFireworks()" style="background: linear-gradient(135deg, rgba(255,105,180,0.3), rgba(255,20,147,0.2)); border-color: rgba(255,105,180,0.6); font-size: 18px; padding: 20px 40px;">
-      Open Your Surprise <span class="emoji">🎆</span>
+    <div class="tease-card" style="margin-top: 20px;">
+      <p style="font-style: italic; color: #ffe4e1; margin-bottom: 0; font-size: 0.95rem; line-height: 1.8;">
+        But what I have is so much more real—<br>
+        it's you in my mind every single moment.<br>
+        <br>
+        <span style="color: #ffb6c1;">I'm planning something special for you.</span><br>
+        Something that comes from my heart.<br>
+        <br>
+        You deserve the world, and I promise I'll give it to you,<br>
+        one beautiful moment at a time. 💕
+      </p>
+    </div>
+    <p style="margin-top: 24px; font-size: 0.9rem; color: #ffd1dc;">
+      Thank you for being patient with me.<br>
+      Thank you for being the person I think about most. 🌹
+    </p>
+    <button onclick="launchFireworks()" style="background: linear-gradient(135deg, rgba(255,105,180,0.3), rgba(255,20,147,0.2)); border-color: rgba(255,105,180,0.6); font-size: 18px; padding: 20px 40px; margin-top: 20px;">
+      Go on 🎆
     </button>
   </section>
 
@@ -487,7 +573,7 @@
   <div class="modal-content">
     <h1>Happy Valentine's Day<br>Sweetheart! 💝</h1>
     <p style="font-size: 1.3rem; color: #ffd1dc; margin-bottom: 10px;">
-      You make every Saturday feel like magic.
+      You make every momment feels like magic whenever we are together.
     </p>
     <p class="click-hint">(Click anywhere to continue)</p>
   </div>
@@ -512,7 +598,7 @@
 
   // Coffee mode easter egg
   function coffeeMode() {
-    alert("☕ Go grab that coffee! I'll wait here...\n\n(Just kidding, click 'I'm awake' when you're ready!)");
+    alert("☕ Go grab that coffee! I'll wait here...\n\n(yo yo yo just kidding!)");
   }
 
   // Roast interaction
@@ -521,6 +607,45 @@
     sleep: "Close! You actually did all three, but the blanket theft was especially impressive last night.",
     snore: "Those tiny noises are adorable, but the blanket situation was criminal! 😄"
   };
+
+  // Photo memory question handler
+  function handleMemoryQuestion(answer) {
+    const memoryButtons = document.getElementById('memory-buttons');
+    const memoryResponse = document.getElementById('memory-response');
+    
+    memoryButtons.style.opacity = '0.3';
+    memoryButtons.style.pointerEvents = 'none';
+    
+    if (answer === 'yes') {
+      memoryResponse.innerHTML = `
+        <p style="font-size: 1.2rem; color: #ffd1dc; margin-bottom: 16px;">
+          ✨ You remember! Of course you do. 💕
+        </p>
+        <p style="font-size: 0.95rem; color: #f0e0d6;">
+          That means everything to me. 🥺
+        </p>
+      `;
+      memoryResponse.style.opacity = '1';
+      createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+    } else {
+      memoryResponse.innerHTML = `
+        <p style="font-size: 1.1rem; color: #ffb6c1; margin-bottom: 16px;">
+          That was the day I was working on this... 💻✨
+        </p>
+        <p style="font-size: 0.95rem; color: #f0e0d6; line-height: 1.6;">
+          I was creating this whole experience to present to you.<br>
+          Because you're the person I think about most.<br>
+          You deserve to know how much you mean to me. 💝
+        </p>
+      `;
+      memoryResponse.style.opacity = '1';
+      createHeartBurst(window.innerWidth/2, window.innerHeight/2);
+    }
+    
+    // Auto-continue after 2.5 seconds
+    setTimeout(() => nextScreen(), 2500);
+  }
+  
 
   function revealRoast(type) {
     document.getElementById('roast-text').textContent = roastResponses[type];
@@ -557,13 +682,16 @@
   // Hold button mechanic
   let holdInterval;
   let holdProgress = 0;
+  let isHolding = false;
   
   function startHold() {
+    isHolding = true;
     holdInterval = setInterval(() => {
       holdProgress += 2;
       document.getElementById('hold-progress').style.width = holdProgress + '%';
       if (holdProgress >= 100) {
         clearInterval(holdInterval);
+        isHolding = false;
         createHeartBurst(window.innerWidth/2, window.innerHeight/2);
         setTimeout(() => nextScreen(), 300);
       }
@@ -571,6 +699,7 @@
   }
 
   function endHold() {
+    isHolding = false;
     clearInterval(holdInterval);
     if (holdProgress < 100) {
       holdProgress = 0;
@@ -733,20 +862,9 @@
   function closeFireworks() {
     document.getElementById('fireworks-modal').classList.remove('show');
     clearInterval(fireworksInterval);
-    // Final message, then proceed to the walk if not already completed
+    // Final heartfelt message
     setTimeout(() => {
-      alert("🎉 Now go find your real gift! Happy Valentine's Day! 💝");
-      try {
-        if (localStorage.getItem('walkCompleted') !== '5') {
-          showTeaserThenGo('Hehe, ready for the walk? 😏', '😆', 'walk.html');
-        } else {
-          // Already completed — stay on the page or optionally show mission screen
-          // document.getElementById('screen-mission').classList.add('active');
-        }
-      } catch (e) {
-        // localStorage may be unavailable; fallback to direct navigation
-        window.location.href = 'walk.html';
-      }
+      alert("💝 I'm sorry bby... I don't have a physical gift right now due to some financial constraints. 😔\n\nBut I want you to know that I'm planning something special for you. It's all in my mind, and I promise I'll make it happen soon.\n\nWhat matters most is that you're here with me, and this moment with you is worth more than anything. 💕");
     }, 500);
   }
 
